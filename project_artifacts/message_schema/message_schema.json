@@ -1,0 +1,177 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "message-schema.json",
+  "title": "Parsed Message",
+  "description": "A parsed botnet C2 message containing metadata, source information, message payload, and optional IP enrichment data.",
+  "version": "1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["timestamp", "source", "message_type", "message", "ip_info"],
+  "properties": {
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "<ISO8601>"
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "ip": {
+          "type": "string",
+          "format": "ipv4"
+        }
+      },
+      "required": ["ip"]
+    },
+    "message_type": {
+      "type": "string",
+      "enum": ["ack", "attack", "command", "heartbeat"]
+    },
+    "message": {
+      "type": "object"
+    },
+    "ip_info": {
+      "type": "array",
+      "description": "IP enrichment information associated with IP addresses referenced in the message.",
+      "items": {
+        "$ref": "file:///ip_schema.json"
+      }
+    }
+  },
+  "oneOf": [
+    {
+      "properties": {
+        "message_type": { "const": "ack" },
+        "message": {
+          "type": "object",
+          "description": "Server-to-client ACK message.",
+          "required": ["status"],
+          "properties": {
+            "status": {
+              "type": "string",
+              "description": "Acknowledgement status."
+            },
+            "notes": {
+              "type": ["string", "null"],
+              "description": "Optional notes for the acknowledgement."
+            }
+          }
+        }
+      }
+    },
+    {
+      "properties": {
+        "message_type": { "const": "attack" },
+        "message":{
+          "type": "object",
+          "description": "Attack command message.",
+          "required": ["code", "name", "protocol", "duration", "argc", "argv", "num_targets", "targets"],
+          "properties": {
+            "code": {
+              "type": "integer",
+              "description": "Attack identifier code."
+            },
+            "name": {
+              "type": "string",
+              "description": "Attack name."
+            },
+            "protocol": {
+              "type": "string",
+              "description": "Network protocol used by the attack."
+            },
+            "duration": {
+              "type": "integer",
+              "description": "Duration of the attack, measured in seconds.",
+              "minimum": 0
+            },
+            "argc": {
+              "type": "integer",
+              "description": "Number of command arguments."
+            },
+            "argv": {
+              "type": "object",
+              "description": "Attack command arguments."
+            },
+            "num_targets": {
+              "type": "integer",
+              "description": "Number of targets included in the attack."
+            },
+            "targets": {
+              "type": "array",
+              "description": "List of attack targets.",
+              "items": {
+                "type": "object",
+                "required": ["ip", "netmask"],
+                "properties": {
+                  "ip": {
+                    "type": "string",
+                    "format": "ipv4",
+                    "description": "Target IP address."
+                  },
+                  "netmask": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 32,
+                    "description": "Target network mask."
+                  }
+                }
+              }
+            },
+            "notes": {
+              "type": ["string", "null"],
+              "description": "Optional notes for the attack."
+            }
+          }
+        }
+      }
+    },
+    {
+      "properties": {
+        "message_type": { "const": "command" },
+        "message":{
+          "type": "object",
+          "description": "Generic command message.",
+          "required": ["command_type", "payload"],
+          "properties": {
+            "command_type": {
+              "type": ["string", "null"],
+              "description": "Best-effort classification of the command, if it could be identified, otherwise null."
+            },
+            "payload": {
+              "type": "string",
+              "description": "Raw command payload."
+            },
+            "notes": {
+              "type": ["string", "null"],
+              "description": "Optional notes for the command."
+            }
+          }
+        }
+      }
+    },
+    {
+      "properties": {
+        "message_type": { "const": "heartbeat" },
+        "message": {
+          "type": "object",
+          "description": "Server-to-client heartbeat message.",
+          "required": ["sequence"],
+          "properties": {
+            "sequence": {
+              "type": "integer",
+              "description": "Heartbeat sequence number."
+            },
+            "uptime": {
+              "type": ["integer", "null"],
+              "description": "Optional bot uptime, measured in seconds."
+            },
+            "notes": {
+              "type": ["string", "null"],
+              "description": "Optional notes for the heartbeat."
+            }
+          }
+        }
+      }
+    }
+  ]
+}

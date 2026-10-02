@@ -1,0 +1,74 @@
+# Detailed analytical details about the active binary program, functions count, and entry points.
+program_architecture:
+  - get_current_program_info: "Shows detailed analytical details about the active binary program."
+  - get_function_count: "Counts the total number of functions identified within the program."
+  - get_entry_points: "Identifies the binary's entry points (e.g., main function / initializer)."
+
+# Management and extraction of imported or exported symbols, strings, global variables, and logical namespaces.
+symbols_labels:
+  - list_imports: "Lists all symbols, functions, and external libraries imported by the binary."
+  - list_exports: "Lists all symbols and functions exported externally by the binary."
+  - list_strings: "Extracts and lists all strings defined in the program."
+  - search_strings: "Searches for specific strings in memory using regular expressions (regex) or substrings."
+  - list_globals: "Lists and maps the global variables identified in the program."
+  - list_namespaces: "Displays the isolated logical namespaces within the program."
+
+# Low-level memory exploration, address spaces, segment layouts, raw byte reading, and primitive disassembly.
+memory_analysis:
+  - get_address_spaces: "Returns the memory address spaces defined in the program."
+  - list_segments: "Lists all memory segments and sections (e.g., .text, .data) and their layout."
+  - inspect_memory_content: "Displays memory contents in a structured format, with context and string detection."
+  - read_memory: "Reads and returns a sequence of raw bytes from a specific address."
+  - search_byte_patterns: "Searches for a specific byte sequence or signature within the binary memory."
+  - disassemble_bytes: "Forces the disassembly of raw bytes from a specific address into an assembly instruction."
+
+# Function discovery, signature validation, assembly listing retrieval, and high-level C decompilation.
+function_analysis:
+  - list_functions: "Lists, with pagination, all the functions found in the program."
+  - search_functions: "Searches the program functions by name pattern."
+  - get_function_by_address: "Retrieve the information of a function from its hex address."
+  - get_function_documentation: "get full function documentation"
+  - get_function_hash: "Computes the SHA-256 hash of the specified function."
+  - get_assembly_context: "Gets the full context information for a specific xref address."
+  - disassemble_function: "Lists the assembly code of all the instructions of a function."
+  - decompile_function: "Decompiles a function, transforming the assembly instructions in C pseudocode (using cache)."
+  - force_decompile: "Forces the decompiling process of a function, with a forced cache refresh."
+
+# Structural relationship mapping, execution call trees, caller/callee identification, and cross-references.
+graph_analysis:
+  - get_full_call_graph: "Generates the call graph/tree (f -> f) of the entire program."
+  - get_function_call_graph: "Generate the call graph of a specific function."
+  - get_function_callees: "Finds all the functions that are called by the specified function."
+  - get_function_callers: "Finds all the functions that call the specified function."
+  - get_function_xrefs: "Gets all the cross-references linked to the specified function."
+  - get_xrefs_to: "Finds all the cross-references that refer to this address."
+  - get_xrefs_from: "Finds all the cross-references that are referred by this address."
+
+# Type Manager interactions, custom structure layout inspection, built-in types, and defined data label listings.
+data_types:
+  - list_data_types: "Lists all data types currently available and registered in the program."
+  - list_data_type_categories: "Lists all categories and subfolders created in the Type Manager."
+  - search_data_types: "Searches for specific data types in the Type Manager by filtering by name or pattern."
+  - get_valid_data_types: "Returns the list of native and built-in data types supported by Ghidra."
+  - list_data_items: "Lists, in a paginated manner, data labels and defined values"
+  - list_data_items_by_xrefs: "Lists data items ordered by the number of incoming cross-references they receive."
+  - get_type_size: "Returns the size in bytes of a given data type."
+  - get_struct_layout: "Shows the detailed layout of structure fields, including offsets and alignment."
+
+# Type system manipulation, signature refinement and variable typing.
+type_system:
+  - get_function_signature: "Returns the prototype string of a function."
+  - get_function_variables: "Lists all the variables associated with a function."
+  - get_function_labels: "Returns all the labels and the symbols defined inside a function."
+  - set_function_prototype: "Changes the function signature, with updated return type or arguments."
+  - set_parameter_type: "Defines the data type of a specific parameter of a function."
+  - set_local_variable_type: "Defines the data type of a specific local variable of a function."
+
+# Symbol refactoring, identifier normalization and annotation utilities.
+renaming:
+  - rename_function: "Searches for a function by its name and changes the function's name."
+  - rename_function_by_address: "Searches for a function by its address and changes the function's name."
+  - rename_variable: "Renames a variable (parameter or local variable) of a the specified function."
+  - rename_data: "Renames the data type at the specified address."
+  - rename_global_variable: "Changes the name of an existing global variable."
+  - rename_label: "Changes the name of an existing label."

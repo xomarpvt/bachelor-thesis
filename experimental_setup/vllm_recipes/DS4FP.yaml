@@ -1,0 +1,22 @@
+model: deepseek-ai/DeepSeek-V4-Flash
+tensor-parallel-size: 4
+performance-mode: interactivity
+max-model-len: auto
+gpu-memory-utilization: 0.90
+trust-remote-code: true
+kv-cache-dtype: fp8
+block-size: 256
+enable-expert-parallel: true
+tokenizer-mode: deepseek_v4
+tool-call-parser: deepseek_v4
+enable-auto-tool-choice: true
+reasoning-parser: deepseek_v4
+speculative-config:
+  method: mtp
+  num_speculative_tokens: 1
+default-chat-template-kwargs:
+  thinking: true,
+  reasoning_effort: high
+enable-prefix-caching: true
+enable-chunked-prefill: true
+  

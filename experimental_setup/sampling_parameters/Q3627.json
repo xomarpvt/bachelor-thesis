@@ -1,0 +1,22 @@
+{
+  "sre_agent": {
+    "temperature": 0.80,
+    "top_p": 0.95,
+    "top_k": 40,
+    "min_p": 0.00,
+    "presence_penalty": 0.00,
+    "frequency_penalty": 0.00,
+    "repetition_penalty": 1.00,
+    "thinking_mode": true
+  },
+  "code_agent": {
+    "temperature": 0.60,
+    "top_p": 0.90,
+    "top_k": 20,
+    "min_p": 0.00,
+    "presence_penalty": 0.00,
+    "frequency_penalty": 0.00,
+    "repetition_penalty": 1.00,
+    "thinking_mode": true
+  }
+}

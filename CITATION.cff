@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "Se utilizzi queste risorse, cita la tesi."
+title: "BotScope: risorse, artefatti e risultati"
+abstract: "Risorse, artefatti e risultati della tesi di laurea «Generazione agentica di moduli per la cattura dei comandi delle botnet»."
+authors:
+  - family-names: Paviotti
+    given-names: Omar
+repository-code: "https://github.com/xomarpvt/bachelor-thesis"
+license: CC-BY-NC-SA-4.0
+date-released: 2026-10-02
+preferred-citation:
+  type: thesis
+  thesis-type: "Tesi di Laurea"
+  title: "Generazione agentica di moduli per la cattura dei comandi delle botnet"
+  authors:
+    - family-names: Paviotti
+      given-names: Omar
+  institution:
+    name: "Università degli Studi di Udine"
+  year: 2026

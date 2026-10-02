@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ip_schema.json",
+  "title": "IP Info",
+  "description": "Information and enrichment data associated with an IP address, including geographic location, network ownership, autonomous system details, and DNS information.",
+  "version": "1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["ip", "geo", "location", "network", "dns", "meta"],
+  "properties": {
+    "ip": {
+      "type": "string",
+      "format": "ipv4"
+    },
+    "geo": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "continent",
+        "continent_code",
+        "country",
+        "country_iso",
+        "country_is_eu",
+        "region",
+        "region_iso",
+        "city",
+        "postal_code",
+        "registered_country",
+        "registered_country_iso",
+        "represented_country",
+        "represented_country_type"
+      ],
+      "properties": {
+        "continent": { "type": ["string", "null"] },
+        "continent_code": { "type": ["string", "null"] },
+        "country": { "type": ["string", "null"] },
+        "country_iso": { "type": ["string", "null"] },
+        "country_is_eu": { "type": ["boolean", "null"] },
+        "region": { "type": ["string", "null"] },
+        "region_iso": { "type": ["string", "null"] },
+        "city": { "type": ["string", "null"] },
+        "postal_code": { "type": ["string", "null"] },
+        "registered_country": { "type": ["string", "null"] },
+        "registered_country_iso": { "type": ["string", "null"] },
+        "represented_country": { "type": ["string", "null"] },
+        "represented_country_type": { "type": ["string", "null"] }
+      }
+    },
+    "location": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["latitude", "longitude", "accuracy_radius_km", "timezone", "metro_code"],
+      "properties": {
+        "latitude": { "type": ["number", "null"], "minimum": -90, "maximum": 90 },
+        "longitude": { "type": ["number", "null"], "minimum": -180, "maximum": 180 },
+        "accuracy_radius_km": { "type": ["integer", "null"], "minimum": 0 },
+        "timezone": { "type": ["string", "null"] },
+        "metro_code": { "type": ["integer", "null"] }
+      }
+    },
+    "network": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["cidr", "is_anycast", "as_number", "as_name", "as_domain"],
+      "properties": {
+        "cidr": { "type": ["string", "null"], "description": "<ip>/<subnet mask>" },
+        "is_anycast": { "type": ["boolean", "null"] },
+        "as_number": { "type": ["string", "null"], "pattern": "^AS[0-9]+$", "description": "AS<number>" },
+        "as_name": { "type": ["string", "null"] },
+        "as_domain": { "type": ["string", "null"] }
+      }
+    },
+    "dns": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ptr", "forward_matches"],
+      "properties": {
+        "ptr": { "type": ["string", "null"] },
+        "forward_matches": { "type": "boolean" }
+      }
+    },
+    "meta": {
+      "type": "object"
+    }
+  }
+}
